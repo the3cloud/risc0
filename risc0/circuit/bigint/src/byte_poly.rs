@@ -103,8 +103,7 @@ pub fn nondet_inv_fixed<const N: usize>(
     // circuit regardless.
     let lhs = to_biguint(lhs);
     let rhs = to_biguint(rhs);
-    let exp = rhs.clone() - 2u8;
-    let result = lhs.modpow(&exp, &rhs);
+    let result = lhs.modinv(&rhs);
     trace!("inv({lhs}, [mod] {rhs}) = {result}");
     from_biguint_fixed(result)
 }
