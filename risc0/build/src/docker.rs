@@ -147,7 +147,14 @@ fn create_dockerfile(
         .concat()
         .join(" ");
     let build_cmd = [
-        &["cargo", "+risc0", "build", "--release"],
+        &[
+            "CC=/root/.local/share/cargo-risczero/cpp/bin/riscv32-unknown-elf-gcc",
+            "CFLAGS_riscv32im_risc0_zkvm_elf=\"-march=rv32im -nostdlib\"",
+            "cargo",
+            "+risc0",
+            "build",
+            "--release",
+        ],
         build_args.as_slice(),
     ]
     .concat()
