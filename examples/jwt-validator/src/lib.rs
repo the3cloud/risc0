@@ -42,7 +42,11 @@ pub fn prove_token_validation(claims: &CustomClaims) -> (Receipt, String) {
         .parse::<Issuer>()
         .expect("failed to create issuer from secret key");
 
+    println!("CHKPT A");
+
     let token = iss.generate_token(claims).expect("failed to create claims");
+
+    println!("CHKPT B");
 
     let env = ExecutorEnv::builder()
         .write(&token.as_str())
@@ -50,17 +54,25 @@ pub fn prove_token_validation(claims: &CustomClaims) -> (Receipt, String) {
         .build()
         .expect("failed to build env");
 
+    println!("CHKPT C");
+
     let prover = default_prover();
+
+    println!("CHKPT D");
 
     let receipt = prover
         .prove(env, VALIDATOR_ELF)
         .expect("failed to prove")
         .receipt;
 
+    println!("CHKPT E");
+
     let output: String = receipt
         .journal
         .decode()
         .expect("Journal should decode to string.");
+
+    println!("CHKPT F");
 
     (receipt, output)
 }
