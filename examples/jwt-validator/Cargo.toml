@@ -14,8 +14,3 @@ risc0-zkvm = { path = "../../risc0/zkvm" }
 cuda = ["risc0-zkvm/cuda"]
 default = []
 prove = ["risc0-zkvm/prove"]
-
-[patch.crates-io]
-# TODO: jwt-compact patching shouldn't be needed long-term, it's just for requesting the "std" feature from `rsa`
-jwt-compact = { path = "/Users/tzerrell/code/jwt-compact" }
-rsa = { path = "/Users/tzerrell/code/RustCrypto/RSA" }
