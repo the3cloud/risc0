@@ -43,5 +43,7 @@ fn main() {
         .validate_token_integrity(token.as_str())
         .expect("token integrity check failed");
 
+    println!("In-guest Sanity Check");
+
     env::commit(&valid_token.claims().custom.subject);
 }

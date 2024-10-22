@@ -83,11 +83,25 @@ impl Validator {
         // assert!(false, "Seriously???");
 
         let token: UntrustedToken = UntrustedToken::new(token).map_err(Err::TokenParseError)?;
+        
+        // assert!(false, "Seriously???.2");
 
-        self.alg
+        let res = self.alg
             .validator(&self.p_k)
-            .validate(&token)
-            .map_err(Err::TokenValidationError)
+            .validate(&token);
+        if res.is_err() {
+            assert!(false, "What about here??");
+        } 
+        else {
+            println!("In `validate_token_integrity` the result isn't an error");
+            // assert!(false, "Or maybe here??");
+        }
+        res.map_err(Err::TokenValidationError)
+
+        // self.alg
+        //     .validator(&self.p_k)
+        //     .validate(&token)
+        //     .map_err(Err::TokenValidationError)
     }
 }
 
