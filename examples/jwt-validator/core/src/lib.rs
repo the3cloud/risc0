@@ -80,6 +80,8 @@ pub struct Validator {
 
 impl Validator {
     pub fn validate_token_integrity(&self, token: &str) -> Result<Token<CustomClaims>, Err> {
+        // assert!(false, "Seriously???");
+
         let token: UntrustedToken = UntrustedToken::new(token).map_err(Err::TokenParseError)?;
 
         self.alg

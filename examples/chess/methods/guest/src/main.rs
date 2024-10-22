@@ -18,6 +18,7 @@ use shakmaty::{fen::Fen, san::San, CastlingMode, Chess, FromSetup, Move, Positio
 
 fn main() {
     let inputs: Inputs = env::read();
+    // env::log("TEST MESSAGE");
     let mv: String = inputs.mv;
     let initial_state: String = inputs.board;
     env::commit(&initial_state);
