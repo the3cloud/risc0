@@ -14,8 +14,17 @@
 
 use jwt_core::Validator;
 use risc0_zkvm::guest::env;
+
 #[link(name = "risc0_circuit_bigint", kind = "static", modifiers = "+whole-archive")]
-use risc0_circuit_bigint::rsa::modpow_65537;
+#[cfg(all(target_os = "zkvm", target_arch = "riscv32"))]
+extern "C" {
+    fn modpow_65537(
+      // TODO: Use a constant not 96 if I get this otherwise working
+      recv_buf: *mut [u32; 96],
+      in_base: *const [u32; 96],
+      in_modulus: *const [u32; 96],
+    );
+}
 
 static PUBLIC_KEY: &str = r#"
     {
