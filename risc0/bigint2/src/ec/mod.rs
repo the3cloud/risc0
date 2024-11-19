@@ -41,18 +41,12 @@ impl AffinePoint {
     pub fn to_u32s(&self) -> [u32; 2 * EC_256_WIDTH_WORDS] {
         // TODO: This feels duplicative with `to_u32_digits` from RSA, but I don't see a way to share code without doubling the `copy_from_slice` calls
         let mut result = [0u32; 2 * EC_256_WIDTH_WORDS];
-        let mut first = self.x.to_u32_digits();
+        let first = self.x.to_u32_digits();
         assert!(first.len() <= EC_256_WIDTH_WORDS);
-        if first.len() < EC_256_WIDTH_WORDS {
-            first.resize(EC_256_WIDTH_WORDS, 0);
-        }
-        let mut last = self.y.to_u32_digits();
+        let last = self.y.to_u32_digits();
         assert!(last.len() <= EC_256_WIDTH_WORDS);
-        if last.len() < EC_256_WIDTH_WORDS {
-            last.resize(EC_256_WIDTH_WORDS, 0);
-        }
-        result[..EC_256_WIDTH_WORDS].copy_from_slice(&first);
-        result[EC_256_WIDTH_WORDS..].copy_from_slice(&last);
+        result[..first.len()].copy_from_slice(&first);
+        result[EC_256_WIDTH_WORDS..EC_256_WIDTH_WORDS+last.len()].copy_from_slice(&last);
         result
     }
 
