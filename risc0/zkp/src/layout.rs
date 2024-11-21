@@ -45,11 +45,11 @@ pub trait Component {
     fn ty_name(&self) -> &'static str;
 }
 
-impl<C: Component, const N: usize> Component for [&C; N] {
+impl<C: Component, const N: usize> Component for [&'static C; N] {
     fn walk<V: Visitor>(&self, v: &mut V) -> core::fmt::Result {
-        for (n, elem) in self.iter().enumerate() {
+        for (n, elem) in self.iter().copied().enumerate() {
             let name = alloc::format!("[{n}]");
-            v.visit_component(&name, *elem)?;
+            v.visit_component(&name, elem)?;
         }
         Ok(())
     }
