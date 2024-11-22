@@ -43,6 +43,7 @@ risc0-zkp = { workspace = true }
 risc0-zkvm-platform = { workspace = true, features = [
   "rust-runtime",
   "export-getrandom",
+  "sys-getenv"
 ] }
 rrs-lib = "0.1"
 semver = { version = "1.0", default-features = false }
